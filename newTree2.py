@@ -78,36 +78,25 @@ def first():
         }
 
 
-def second():
-    print(f'Ao todo temos {len(pacientes)} paciente(s) cadastrados no sistema')
-    rg = int(input('Qual o número de cadastro do paciente que você deseja encontrar?: '))	
-    if arv.buscar(rg) != None:
-        print('Paciente Encontrado!')
-        sint= input('Deseja verificar os sintomas dos pacientes cadastrados ? [S/N]')
-        if sint in 'Ss':
-            print(dados[rg])
-        else:
-            print('Opção Negada ! Entre com a nova operação')
-    else:
-        os.system('cls')
-        print(' Paciente não encontrado!') 
+def second(matricula):
+    chaves = []
+    chaves.append(matricula)
+    return chaves
+
+def mostra_pacientes(dados, chaves):
+    table = []
+    for chave in chaves:
+        table.append([
+            pacientes[dados]['nome'],
+            pacientes[dados]['telefone'],
+            pacientes[dados]['matricula'],
+            pacientes[dados]['gênero']
+        ])
+    print(tabulate(table))
+
 
 def third():
     print(dados)
-
-def mostra_pacientes(pacientes,chaves):
-    table = []
-    for arv.buscar() in chaves:
-        table.append([
-            pacientes[chave]['nome'],
-            pacientes[chave]['telefone'],
-            pacientes[chave]['RG'],
-            pacientes[chave]['gênero']
-        ])
-
-        print(tabulate(table))
-
-
      
 arv = Tree()
 print('_'*30)
@@ -128,11 +117,14 @@ while True:
     if opcao == 1:
         first()
     elif opcao == 2:
-        second() 
+        matricula = int(input('Matricula: '))
+        if matricula in dados:
+            print(dados[matricula])
+        chaves_encontradas = second(dados) 
+        mostra_pacientes(pacientes, chaves_encontradas)
     elif opcao == 3:
         arv.encaminhar()
        # third()
-        mostra_pacientes(pacientes,)
     elif opcao == 4:
         break
 
